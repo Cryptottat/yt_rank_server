@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from rest_framework.views import APIView
 from rest_framework.response import Response
-from .models import ThreadInfoData as ThreadInfo
+from .models import ThreadInfoData
 import time
 # Create your views here.
 
@@ -15,7 +15,7 @@ class SetThreadInfoFromController(APIView):
         target_url = request.data.get('target_url',None)
         enter_type = request.data.get('enter_type',None)
         target_state = request.data.get('target_state',None)
-        thread_infos = ThreadInfo.objects.filter(host_name=host_name, anydesk_id=anydesk_id, thread_index=thread_index)
+        thread_infos = ThreadInfoData.objects.filter(host_name=host_name, anydesk_id=anydesk_id, thread_index=thread_index)
         if not thread_infos.exist():
             return {'msg': False}
         thread = thread_infos.first()
@@ -30,9 +30,9 @@ class GetThreadInfoListFromController(APIView):
     def get(self, request):
         server_num = request.data.get('server_num',None)
         if server_num is None:
-            return_data = {'thread_list': list(ThreadInfo.objects.values().all())}
+            return_data = {'thread_list': list(ThreadInfoData.objects.values().all())}
             return Response(data=return_data)
-        return_data = {'thread_list':list(ThreadInfo.objects.filter(server_num=server_num).values().first())}
+        return_data = {'thread_list':list(ThreadInfoData.objects.filter(server_num=server_num).values().first())}
         return Response(data=return_data)
 class GetThreadInfoListFromClient(APIView):
     def post(self, request):
@@ -42,8 +42,8 @@ class GetThreadInfoListFromClient(APIView):
         total_logged_in = request.data.get('total_logged_in', None)  #
         thread_list = request.data.get('thread_list', [])  #
         for thread in thread_list:
-            if not ThreadInfo.objects.filter(host_name=host_name, anydesk_id=anydesk_id, thread_index=thread['thread_index']).exists():
-                ThreadInfo.objects.create(
+            if not ThreadInfoData.objects.filter(host_name=host_name, anydesk_id=anydesk_id, thread_index=thread['thread_index']).exists():
+                ThreadInfoData.objects.create(
                     host_name=host_name,
                     anydesk_id=anydesk_id,
                     hai_ip_account=hai_ip_account,
@@ -61,7 +61,7 @@ class GetThreadInfoListFromClient(APIView):
                     last_connected_timestamp = int(time.time())
                 )
                 continue
-            thread_info = ThreadInfo.objects.filter(host_name=host_name, anydesk_id=anydesk_id, thread_index=thread['thread_index']).first()
+            thread_info = ThreadInfoData.objects.filter(host_name=host_name, anydesk_id=anydesk_id, thread_index=thread['thread_index']).first()
             thread_info.server_num = thread['server_num']
             thread_info.proxy = thread['proxy']
             thread_info.google_id = thread['google_id']
@@ -71,7 +71,7 @@ class GetThreadInfoListFromClient(APIView):
             thread_info.google_logged_in = thread['google_logged_in']
             thread_info.now_state = thread['now_state']
             thread_info.save()
-        thread_info_list = ThreadInfo.objects.filter(host_name=host_name, anydesk_id=anydesk_id).all()
+        thread_info_list = ThreadInfoData.objects.filter(host_name=host_name, anydesk_id=anydesk_id).all()
         return_thread_info_list = []
         for thread in thread_info_list:
             data = dict(

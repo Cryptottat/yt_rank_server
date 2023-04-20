@@ -31,5 +31,5 @@ class AdminThreadInfo(admin.ModelAdmin):
         'last_connected_timestamp'
     )
 
-admin.site.register(ThreadInfo,AdminThreadInfo)
+admin.site.register(ThreadInfoData,AdminThreadInfo)
 
