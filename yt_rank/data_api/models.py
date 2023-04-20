@@ -2,7 +2,7 @@ from django.db import models
 
 
 # Create your models here.
-class TT(models.Model):
+class ThreadInfoData(models.Model):
     host_name = models.CharField(max_length=20, null=False, verbose_name=u"컴터ID")
     anydesk_id = models.CharField(max_length=20, null=False, verbose_name=u"애니데스크")
     hai_ip_account = models.CharField(max_length=20, null=False, verbose_name=u"Hai-IP")
