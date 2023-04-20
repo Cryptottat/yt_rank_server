@@ -26,7 +26,8 @@ DEBUG = True
 
 ALLOWED_HOSTS = [
     "*",
-    "52.14.142.159"
+    "52.14.142.159",
+    ".yt-rank.monstar"
 ]
 
 # Application definition
