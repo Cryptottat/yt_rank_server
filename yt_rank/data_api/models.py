@@ -24,7 +24,7 @@ class ThreadInfoData(models.Model):
     last_connected_timestamp = models.BigIntegerField(null=True, default=None, verbose_name=u"마지막 접속")
 
     class Meta:
-        db_table = 'thread_data'
+        db_table = 'thread_info_data'
         verbose_name = u'Thread Info'
 
 #
