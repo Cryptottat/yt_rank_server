@@ -111,8 +111,8 @@ USE_TZ = True
 
 STATIC_URL = "/static/"
 # STATIC_ROOT = BASE_DIR / 'yt_rank' / 'static'
-STATIC_ROOT = '/home/ubuntu/static'
-# STATIC_DIR = BASE_DIR / 'static'
+# STATIC_ROOT = '/home/ubuntu/static'
+STATIC_DIR = BASE_DIR / 'static'
 # STATICFILES_DIRS = [
     # STATIC_DIR,
 # ]
