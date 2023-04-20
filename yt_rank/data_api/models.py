@@ -25,3 +25,7 @@ class ThreadInfo(models.Model):
     class Meta:
         db_table = 'thread_data'
         verbose_name = 'Thread Info'
+
+
+
+
