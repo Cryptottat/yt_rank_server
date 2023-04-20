@@ -15,6 +15,7 @@ class ThreadInfoData(models.Model):
     google_email = models.CharField(max_length=50, null=True, default=None, verbose_name=u"Email")
     user_agent = models.CharField(max_length=200, null=True, default=None, verbose_name=u"U-agent")
     google_logged_in = models.BooleanField(null=False, default=False, verbose_name=u"Lg")
+    rank = models.IntegerField(null=True, default=None,verbose_name=u"순위")
     keyword = models.CharField(max_length=100, null=True, default=None, verbose_name=u"검색어")
     is_filter = models.BooleanField(null=False, default=False, verbose_name=u"실시간")
     target_url = models.CharField(max_length=200, null=True, default=None, verbose_name=u"타겟 주소")

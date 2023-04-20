@@ -56,6 +56,7 @@ class GetThreadInfoListFromClient(APIView):
                     google_email=thread['google_email'],
                     user_agent=thread['user_agent'],
                     google_logged_in=thread['google_logged_in'],
+                    rank=thread['rank'],
                     now_state=thread['now_state'],
                     is_filter=False,
                     last_connected_timestamp = int(time.time())
