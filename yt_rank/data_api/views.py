@@ -71,6 +71,7 @@ class GetThreadInfoListFromClient(APIView):
             thread_info.user_agent = thread['user_agent']
             thread_info.google_logged_in = thread['google_logged_in']
             thread_info.now_state = thread['now_state']
+            thread_info.last_connected_timestamp = int(time.time())
             thread_info.save()
         thread_info_list = ThreadInfoData.objects.filter(host_name=host_name, anydesk_id=anydesk_id).all()
         return_thread_info_list = []
