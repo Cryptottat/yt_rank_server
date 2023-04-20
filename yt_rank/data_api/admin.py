@@ -6,6 +6,7 @@ from .models import ThreadInfo
 class AdminThreadInfo(admin.ModelAdmin):
     model = ThreadInfo
     list_display = (
+        'server_num',
         # 'host_name',
         'anydesk_id',
         # 'hai_ip_account',
@@ -14,17 +15,19 @@ class AdminThreadInfo(admin.ModelAdmin):
         'google_logged_in',
         'now_state',
         'target_state',
-        'server_num',
-        'proxy',
-        'google_id',
-        'google_password',
-        'google_email',
+
+
         # 'user_agent',
 
         'keyword',
         'is_filter',
         'target_url',
         'enter_type',
+
+        'google_id',
+        'google_password',
+        'google_email',
+        'proxy',
         'last_connected_timestamp'
     )
 
