@@ -15,6 +15,7 @@ class AdminThreadInfo(admin.ModelAdmin):
         'google_logged_in',
         'now_state',
         'target_state',
+        'rank',
 
 
         # 'user_agent',
