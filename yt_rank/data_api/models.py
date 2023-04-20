@@ -41,7 +41,7 @@ def update_contenttypes_names(**kwargs):
         cl = c.model_class()
         # Promises classes are from translated, mostly django-internal models. ignore them.
         if cl and not isinstance(cl._meta.verbose_name, Promise):
-            new_name = cl._meta.verbose_name.decode('utf-8')
+            new_name = cl._meta.verbose_name
             if c.name != new_name:
                 c.name = new_name
                 c.save()
