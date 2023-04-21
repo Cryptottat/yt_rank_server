@@ -6,9 +6,10 @@ from .models import ThreadInfoData
 class AdminThreadInfo(admin.ModelAdmin):
     model = ThreadInfoData
     list_display = (
+        'anydesk_id',
         'server_num',
         # 'host_name',
-        'anydesk_id',
+
         # 'hai_ip_account',
         # 'total_logged_in',
         'thread_index',
