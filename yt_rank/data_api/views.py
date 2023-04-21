@@ -43,6 +43,19 @@ class GetThreadInfoListFromClient(APIView):
         thread_list = request.data.get('thread_list', [])  #
         for thread in thread_list:
             if not ThreadInfoData.objects.filter(host_name=host_name, anydesk_id=anydesk_id, thread_index=thread['thread_index']).exists():
+                google_id = None
+                google_password = None
+                google_email = None
+                user_agent = None
+                if 'google_id' in thread:
+                    google_id = thread['google_id']
+                if 'google_password' in thread:
+                    google_password = thread['google_password']
+                if 'google_email' in thread:
+                    google_email = thread['google_email']
+                if 'user_agent' in thread:
+                    user_agent = thread['user_agent']
+
                 ThreadInfoData.objects.create(
                     host_name=host_name,
                     anydesk_id=anydesk_id,
@@ -51,10 +64,10 @@ class GetThreadInfoListFromClient(APIView):
                     thread_index=thread['thread_index'],
                     server_num=thread['server_num'],
                     proxy=thread['proxy'],
-                    google_id=thread['google_id'],
-                    google_password=thread['google_password'],
-                    google_email=thread['google_email'],
-                    user_agent=thread['user_agent'],
+                    google_id=google_id,
+                    google_password=google_password,
+                    google_email=google_email,
+                    user_agent=user_agent,
                     google_logged_in=thread['google_logged_in'],
                     rank=thread['rank'],
                     now_state=thread['now_state'],
@@ -65,10 +78,14 @@ class GetThreadInfoListFromClient(APIView):
             thread_info = ThreadInfoData.objects.filter(host_name=host_name, anydesk_id=anydesk_id, thread_index=thread['thread_index']).first()
             thread_info.server_num = thread['server_num']
             thread_info.proxy = thread['proxy']
-            thread_info.google_id = thread['google_id']
-            thread_info.google_password = thread['google_password']
-            thread_info.google_email = thread['google_email']
-            thread_info.user_agent = thread['user_agent']
+            if 'google_id' in thread:
+                thread_info.google_id = thread['google_id']
+            if 'google_password' in thread:
+                thread_info.google_password = thread['google_password']
+            if 'google_email' in thread:
+                thread_info.google_email = thread['google_email']
+            if 'user_agent' in thread:
+                thread_info.user_agent = thread['user_agent']
             thread_info.google_logged_in = thread['google_logged_in']
             thread_info.now_state = thread['now_state']
             thread_info.last_connected_timestamp = int(time.time())
@@ -80,6 +97,7 @@ class GetThreadInfoListFromClient(APIView):
                 thread_index=thread.thread_index,
                 server_num=thread.server_num,
                 proxy=thread.proxy,
+                google_logged_in=thread.google_logged_in,
                 google_id=thread.google_id,
                 google_password=thread.google_password,
                 google_email=thread.google_email,
