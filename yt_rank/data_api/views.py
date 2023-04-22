@@ -98,6 +98,11 @@ class SetUpdateInfoByAnydeskIDList(APIView):
             if UpdateInfoData.objects.filter(anydesk_id=anydesk_id).exists():
                 update_info_data = UpdateInfoData.objects.filter(anydesk_id=anydesk_id).first()
             if update_info_data is None:
+                line_from = None
+                line_to = None
+                if task_type == 'download_extract_replace':
+                    line_from = line_from_list[n]
+                    line_to = line_to_list[n]
                 UpdateInfoData.objects.create(
                     anydesk_id=anydesk_id,
                     excel_num=excel_num,
@@ -106,13 +111,18 @@ class SetUpdateInfoByAnydeskIDList(APIView):
                     target_path=target_path,
                     file_name=file_name,
                     download_url=download_url,
-                    line_from=line_from_list[n],
-                    line_to=line_to_list[n],
+                    line_from=line_from,
+                    line_to=line_to,
                     absolute_path=absolute_path,
                     after_run=after_run,
                     process_name=process_name,
                 )
                 continue
+            line_from = None
+            line_to = None
+            if task_type == 'download_extract_replace':
+                line_from = line_from_list[n]
+                line_to = line_to_list[n]
             update_info_data.anydesk_id = anydesk_id
             update_info_data.excel_num = excel_num
             update_info_data.uuid = uuid
@@ -123,8 +133,8 @@ class SetUpdateInfoByAnydeskIDList(APIView):
             update_info_data.target_path = target_path
             update_info_data.file_name = file_name
             update_info_data.download_url = download_url
-            update_info_data.line_from = line_from_list[n]
-            update_info_data.line_to = line_to_list[n]
+            update_info_data.line_from = line_from
+            update_info_data.line_to = line_to
             update_info_data.absolute_path = absolute_path
             update_info_data.after_run = after_run
             update_info_data.process_name = process_name
