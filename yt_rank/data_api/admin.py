@@ -55,6 +55,7 @@ class AdminThreadInfo(admin.ModelAdmin):
         'proxy',
         'last_connected_timestamp'
     )
+    list_per_page = 1000
     list_filter = ['google_logged_in']
 
 admin.site.register(ThreadInfoData,AdminThreadInfo)
