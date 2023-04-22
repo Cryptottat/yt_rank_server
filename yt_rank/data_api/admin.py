@@ -1,7 +1,30 @@
 from django.contrib import admin
 
 # Register your models here.
-from .models import ThreadInfoData
+from .models import ThreadInfoData,UpdateInfoData
+
+class AdminUpdateInfo(admin.ModelAdmin):
+    model = UpdateInfoData
+    list_display = (
+        'host_name',
+        'anydesk_id',
+        'uuid',
+        'task_type',
+        'try_done',
+        'success',
+        'msg',
+        'process_name',
+        'target_path',
+        'file_name',
+        'line_from',
+        'line_to',
+        'absolute_path',
+        'download_url',
+        'after_run',
+
+    )
+
+admin.site.register(UpdateInfoData,AdminUpdateInfo)
 
 class AdminThreadInfo(admin.ModelAdmin):
     model = ThreadInfoData
