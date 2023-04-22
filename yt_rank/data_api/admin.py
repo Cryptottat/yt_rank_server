@@ -6,8 +6,8 @@ from .models import ThreadInfoData,UpdateInfoData
 class AdminUpdateInfo(admin.ModelAdmin):
     model = UpdateInfoData
     list_display = (
-        'host_name',
         'anydesk_id',
+        'host_name',
         'uuid',
         'task_type',
         'try_done',
@@ -21,8 +21,8 @@ class AdminUpdateInfo(admin.ModelAdmin):
         'absolute_path',
         'download_url',
         'after_run',
-
     )
+    list_filter = ['success']
 
 admin.site.register(UpdateInfoData,AdminUpdateInfo)
 
@@ -55,6 +55,7 @@ class AdminThreadInfo(admin.ModelAdmin):
         'proxy',
         'last_connected_timestamp'
     )
+    list_filter = ['google_logged_in']
 
 admin.site.register(ThreadInfoData,AdminThreadInfo)
 
