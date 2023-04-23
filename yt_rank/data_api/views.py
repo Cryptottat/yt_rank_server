@@ -56,12 +56,11 @@ class GetUpdateInfo(APIView):
         update_info_data = None
         if UpdateInfoData.objects.filter(anydesk_id=anydesk_id).exists():
             update_info_data = UpdateInfoData.objects.filter(anydesk_id=anydesk_id)
-        elif UpdateInfoData.objects.filter(host_name=host_name).exists():
-            update_info_data = UpdateInfoData.objects.filter(host_name=host_name)
+        # elif UpdateInfoData.objects.filter(host_name=host_name).exists():
+        #     update_info_data = UpdateInfoData.objects.filter(host_name=host_name)
         if update_info_data is None:
             return Response(data={'msg': 'success', 'data':None})
         # data = UpdateInfoSerializer(update_info_data)
-        print(update_info_data.values())
         data = json.dumps(list(update_info_data.values()),cls=DjangoJSONEncoder)
         return Response(data={'msg': 'success', 'data':data})
 class SetUpdateInfoByAnydeskIDList(APIView):
@@ -98,28 +97,32 @@ class SetUpdateInfoByAnydeskIDList(APIView):
             update_info_data = None
             if UpdateInfoData.objects.filter(anydesk_id=anydesk_id).exists():
                 update_info_data = UpdateInfoData.objects.filter(anydesk_id=anydesk_id).first()
-                update_info_data.delete()
-            # if update_info_data is None:
-            line_from = None
-            line_to = None
-            if task_type == 'download_extract_replace':
-                line_from = line_from_list[n]
-                line_to = line_to_list[n]
-            UpdateInfoData.objects.create(
-                anydesk_id=anydesk_id,
-                excel_num=excel_num,
-                uuid=uuid,
-                task_type=task_type,
-                target_path=target_path,
-                file_name=file_name,
-                download_url=download_url,
-                line_from=line_from,
-                line_to=line_to,
-                absolute_path=absolute_path,
-                after_run=after_run,
-                process_name=process_name,
-            )
-            continue
+                # update_info_data.delete()
+            if update_info_data is None:
+                line_from = None
+                line_to = None
+                if task_type == 'download_extract_replace':
+                    line_from = line_from_list[n]
+                    line_to = line_to_list[n]
+                UpdateInfoData.objects.create(
+                    anydesk_id=anydesk_id,
+                    excel_num=excel_num,
+                    uuid=uuid,
+                    task_type=task_type,
+                    try_done=False,
+                    success=None,
+                    msg=None,
+                    target_path=target_path,
+                    file_name=file_name,
+                    download_url=download_url,
+                    line_from=line_from,
+                    line_to=line_to,
+                    absolute_path=absolute_path,
+                    after_run=after_run,
+                    process_name=process_name,
+                )
+                continue
+            update_info_data = UpdateInfoData.objects.filter(anydesk_id=anydesk_id).first()
             line_from = None
             line_to = None
             if task_type == 'download_extract_replace':
@@ -177,27 +180,30 @@ class SetUpdateInfoByAnydeskId(APIView):
         update_info_data = None
         if UpdateInfoData.objects.filter(anydesk_id=anydesk_id).exists():
             update_info_data = UpdateInfoData.objects.filter(anydesk_id=anydesk_id).first()
-            update_info_data.delete()
+            # update_info_data.delete()
         #     update_info_data = UpdateInfoData.objects.filter(anydesk_id=anydesk_id).first()
         # elif UpdateInfoData.objects.filter(host_name=host_name).exists():
         #     update_info_data = UpdateInfoData.objects.filter(host_name=host_name).first()
-        # if update_info_data is None:
-        UpdateInfoData.objects.create(
-            anydesk_id=anydesk_id,
-            excel_num=excel_num,
-            host_name=host_name,
-            uuid=uuid,
-            task_type=task_type,
-            target_path=target_path,
-            file_name=file_name,
-            download_url=download_url,
-            line_from=line_from,
-            line_to=line_to,
-            absolute_path=absolute_path,
-            after_run=after_run,
-            process_name=process_name,
-        )
-        return Response(data={'msg': 'success'})
+        if update_info_data is None:
+            UpdateInfoData.objects.create(
+                anydesk_id=anydesk_id,
+                excel_num=excel_num,
+                host_name=host_name,
+                uuid=uuid,
+                task_type=task_type,
+                try_done=False,
+                success=None,
+                msg=None,
+                target_path=target_path,
+                file_name=file_name,
+                download_url=download_url,
+                line_from=line_from,
+                line_to=line_to,
+                absolute_path=absolute_path,
+                after_run=after_run,
+                process_name=process_name,
+            )
+            return Response(data={'msg': 'success'})
         update_info_data.anydesk_id = anydesk_id
         update_info_data.excel_num = excel_num
         update_info_data.host_name = host_name
