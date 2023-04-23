@@ -262,7 +262,7 @@ class GetThreadInfoListFromClient(APIView):
         total_logged_in = request.data.get('total_logged_in', None)  #
         thread_list = request.data.get('thread_list', [])  #
         for thread in thread_list:
-            if not ThreadInfoData.objects.filter(host_name=host_name, anydesk_id=anydesk_id, thread_index=thread['thread_index']).exists():
+            if not ThreadInfoData.objects.filter(anydesk_id=anydesk_id, thread_index=thread['thread_index']).exists():
                 google_id = None
                 google_password = None
                 google_email = None
@@ -292,10 +292,10 @@ class GetThreadInfoListFromClient(APIView):
                     rank=thread['rank'],
                     now_state=thread['now_state'],
                     is_filter=False,
-                    last_connected_timestamp = int(time.time())
+                    last_connected_timestamp=int(time.time())
                 )
                 continue
-            thread_info = ThreadInfoData.objects.filter(host_name=host_name, anydesk_id=anydesk_id, thread_index=thread['thread_index']).first()
+            thread_info = ThreadInfoData.objects.filter(anydesk_id=anydesk_id, thread_index=thread['thread_index']).first()
             thread_info.server_num = thread['server_num']
             thread_info.proxy = thread['proxy']
             if 'google_id' in thread:

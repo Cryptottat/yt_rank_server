@@ -22,7 +22,7 @@ class AdminUpdateInfo(admin.ModelAdmin):
         'download_url',
         'after_run',
     )
-    list_filter = ['success']
+    list_filter = ['success','try_done']
 
 admin.site.register(UpdateInfoData,AdminUpdateInfo)
 
@@ -55,7 +55,7 @@ class AdminThreadInfo(admin.ModelAdmin):
         'proxy',
         'last_connected_timestamp'
     )
-    list_per_page = 1000
+    list_per_page = 300
     list_filter = ['google_logged_in']
 
 admin.site.register(ThreadInfoData,AdminThreadInfo)
