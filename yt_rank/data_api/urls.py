@@ -3,8 +3,14 @@ from . import views
 
 urlpatterns = [
     path('get_thread_info_list_from_client', views.GetThreadInfoListFromClient.as_view(), name='get_thread_info_list_from_client'),
+    path('set_thread_info_list_from_client', views.SetThreadInfoListFromClient.as_view(), name='set_thread_info_list_from_client'),
+    path('set_thread_info_from_client', views.SetThreadInfoFromClient.as_view(), name='set_thread_info_from_client'),
+
+
     path('get_thread_info_list_from_controller', views.GetThreadInfoListFromController.as_view(), name='get_thread_info_list_from_controller'),
     path('set_thread_info_from_controller', views.SetThreadInfoFromController.as_view(), name='set_thread_info_from_controller'),
+
+
 
     path('get_update_info', views.GetUpdateInfo.as_view(), name='get_update_info'),
     path('set_update_info_by_anydesk_id_list', views.SetUpdateInfoByAnydeskIDList.as_view(), name='set_update_info_by_anydesk_id_list'),
