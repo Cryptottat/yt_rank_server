@@ -307,6 +307,27 @@ class SetThreadInfoFromClient(APIView):
             return Response(data={'msg': 'fail'})
         thread_infos = ThreadInfoData.objects.filter(anydesk_id=anydesk_id, thread_index=thread_index)
         if not thread_infos.exists():
+            if google_logged_in != 'null':
+                a = ThreadInfoData.objects.create(
+                    host_name=host_name,
+                    anydesk_id=anydesk_id,
+                    hai_ip_account=hai_ip_account,
+                    total_logged_in=None,
+                    thread_index=thread_index,
+                    server_num=True,
+                    proxy=None,
+                    google_id=None,
+                    google_password=None,
+                    google_email=None,
+                    user_agent=None,
+                    google_logged_in=google_logged_in,
+                    rank=None,
+                    now_state=None,
+                    is_filter=False,
+                    last_connected_timestamp=str(int(time.time()))
+                )
+
+
             return Response(data={'msg': 'fail', 'error': 'no_matched_thread_info'})
         thread = thread_infos.first()
         if hai_ip_account != 'null':
@@ -452,7 +473,7 @@ class SetThreadInfoListFromClient(APIView):  # -> 최초 1회만 수행되는거
                     host_name=host_name,
                     anydesk_id=anydesk_id,
                     hai_ip_account=hai_ip_account,
-                    total_logged_in=0,
+                    total_logged_in=None,
                     thread_index=thread['thread_index'],
                     server_num=thread['server_num'],
                     proxy=thread['proxy'],

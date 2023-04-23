@@ -22,10 +22,10 @@ class UpdateInfoData(models.Model):
 
 class ThreadInfoData(models.Model):
     excel_num = models.IntegerField(null=True, blank=True, default=None, verbose_name=u"엑셀")
-    host_name = models.CharField(max_length=20, null=False, verbose_name="컴터ID")
+    host_name = models.CharField(max_length=20, null=True, verbose_name="컴터ID")
     anydesk_id = models.CharField(max_length=20, null=False, verbose_name=u"애니데스크")
     hai_ip_account = models.CharField(max_length=20, null=False, verbose_name=u"Hai-IP")
-    total_logged_in = models.IntegerField(null=False, blank=True, default=0, verbose_name=u"총로긴")
+    total_logged_in = models.IntegerField(null=True, blank=True, default=None, verbose_name=u"총로긴")
     thread_index = models.IntegerField(null=False, verbose_name=u"스레드")
     chrome = models.BooleanField(null=True,blank=True,default=None,verbose_name=u"크롬창")
     server_num = models.IntegerField(null=True, blank=True, default=None, verbose_name=u"서버")
