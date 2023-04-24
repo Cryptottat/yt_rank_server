@@ -275,6 +275,33 @@ class GetThreadInfoListFromController(APIView):
         return_data = {'thread_list': list(ThreadInfoData.objects.filter(server_num=server_num).values().first())}
         return Response(data=return_data)
 
+class StopAll(APIView):
+    def post(self, request):
+        server_num = request.data.get('server_num', 1)  #
+        thread_info_list = ThreadInfoData.objects.filter(server_num=server_num).all()
+        for thread_info in thread_info_list:
+            thread_info.keyword = None
+            thread_info.is_filter = True
+            thread_info.target_url = None
+            thread_info.enter_type = None
+            thread_info.target_state = 'quit_streaming'
+            thread_info.save()
+class StartAll(APIView):
+    def post(self, request):
+        server_num = request.data.get('server_num', 1)  #
+        keyword = request.data.get('keyword', None)  #
+        # is_filter = request.data.get('is_filter', True)  #
+        target_url = request.data.get('target_url', None)  #
+        # target_state = request.data.get('target_state', None)  #
+        # enter_type = 'search'
+        thread_info_list = ThreadInfoData.objects.filter(server_num=server_num).all()
+        for thread_info in thread_info_list:
+            thread_info.keyword = keyword
+            thread_info.is_filter = True
+            thread_info.target_url = target_url
+            thread_info.enter_type = 'search'
+            thread_info.target_state = 'join_streaming'
+            thread_info.save()
 
 class SetThreadInfoFromClient(APIView):
     def post(self, request):

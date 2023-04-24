@@ -10,6 +10,9 @@ urlpatterns = [
     path('get_thread_info_list_from_controller', views.GetThreadInfoListFromController.as_view(), name='get_thread_info_list_from_controller'),
     path('set_thread_info_from_controller', views.SetThreadInfoFromController.as_view(), name='set_thread_info_from_controller'),
 
+    path('stop_all', views.StopAll.as_view(), name='stop_all'),
+    path('start_all', views.StartAll.as_view(), name='start_all'),
+
 
 
     path('get_update_info', views.GetUpdateInfo.as_view(), name='get_update_info'),
