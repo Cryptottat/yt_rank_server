@@ -19,7 +19,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = "django-insecure-!tuw&h9a&#rne8%5+k&p6_l=b%6*j!mm4%6rky+47k&4u4ip3q"
+SECRET_KEY = ""
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -35,6 +35,10 @@ ALLOWED_HOSTS = [
 INSTALLED_APPS = [
     'rest_framework',
     'data_api',
+    'six',
+    'rank.apps.RankConfig',
+    'common.apps.CommonConfig',
+
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
@@ -53,12 +57,12 @@ MIDDLEWARE = [
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
 ]
 
-ROOT_URLCONF = "yt_rank.urls"
+ROOT_URLCONF = "config.urls"
 
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
-        "DIRS": [],
+        "DIRS": [BASE_DIR / 'templates'],
         "APP_DIRS": True,
         "OPTIONS": {
             "context_processors": [
@@ -71,10 +75,11 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = "yt_rank.wsgi.application"
+WSGI_APPLICATION = "config.wsgi.application"
 
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
+AUTH_USER_MODEL = 'common.User'
 
 DATABASES = {
     "default": {
@@ -98,26 +103,52 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/4.2/topics/i18n/
 
+
 LANGUAGE_CODE = "en-us"
 
-TIME_ZONE = "UTC"
+TIME_ZONE = 'Asia/Seoul'  # 한국 시간 적용
 
 USE_I18N = True
 
-USE_TZ = True
+USE_L10N = True
 
-# Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/4.2/howto/static-files/
+USE_TZ = False
 
-STATIC_URL = "/static/"
-# STATIC_ROOT = BASE_DIR / 'yt_rank' / 'static'
-STATIC_ROOT = '/home/ubuntu/yt_rank/static'
-# STATIC_DIR = BASE_DIR / 'static'
-# STATICFILES_DIRS = [
-    # STATIC_DIR,
-# ]
+# 원래 되던 버전
+# # Static files (CSS, JavaScript, Images)
+# # https://docs.djangoproject.com/en/4.2/howto/static-files/
+#
+# STATIC_URL = "/static/"
+# # STATIC_ROOT = BASE_DIR / 'yt_rank' / 'static'
+# STATIC_ROOT = '/home/ubuntu/yt_rank/static'
+# # STATIC_DIR = BASE_DIR / 'static'
+# # STATICFILES_DIRS = [
+#     # STATIC_DIR,
+# # ]
+#
+# # Default primary key field type
+# # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
-# Default primary key field type
-# https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
+# 점투장 버전
+STATIC_URL = 'static/'
+STATICFILES_DIRS = [
+    BASE_DIR / 'static',
+]
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+
+LOGIN_REDIRECT_URL = '/'
+LOGOUT_REDIRECT_URL = '/'
+
+# email
+EMAIL_HOST = 'smtp.gmail.com'
+# 메일을 호스트하는 서버
+EMAIL_PORT = '587'
+# gmail과의 통신하는 포트
+EMAIL_HOST_USER = 'copytradingbitgettest@gmail.com'
+# 발신할 이메일
+EMAIL_HOST_PASSWORD = ''
+# 발신할 메일의 비밀번호
+EMAIL_USE_TLS = True
+# TLS 보안 방법
+DEFAULT_FROM_EMAIL = EMAIL_HOST_USER

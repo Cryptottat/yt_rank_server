@@ -286,6 +286,7 @@ class StopAll(APIView):
             thread_info.enter_type = None
             thread_info.target_state = 'quit_streaming'
             thread_info.save()
+        return Response()
 class StartAll(APIView):
     def post(self, request):
         server_num = request.data.get('server_num', 1)  #
@@ -302,6 +303,7 @@ class StartAll(APIView):
             thread_info.enter_type = 'search'
             thread_info.target_state = 'join_streaming'
             thread_info.save()
+        return Response()
 
 class SetThreadInfoFromClient(APIView):
     def post(self, request):
