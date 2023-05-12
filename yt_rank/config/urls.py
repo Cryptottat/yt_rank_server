@@ -19,7 +19,7 @@ from django.urls import path, include
 from rank.views import index as rank_views_index
 
 urlpatterns = [
-    path("admin/", admin.site.urls),
+    path("admin/", admin.site.urls, name='admin'),
     path('data_api/', include('data_api.urls')),
     path('rank/', include('rank.urls'), name='rank'),
     path('payments/', include('payments.urls'), name='payments'),
