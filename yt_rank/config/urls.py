@@ -22,6 +22,7 @@ urlpatterns = [
     path("admin/", admin.site.urls),
     path('data_api/', include('data_api.urls')),
     path('rank/', include('rank.urls'), name='rank'),
+    path('payments/', include('payments.urls'), name='payments'),
     path('common/', include('common.urls'), name='common'),
     path('', rank_views_index, name='index'),
 ]

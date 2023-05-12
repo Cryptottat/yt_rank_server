@@ -19,7 +19,6 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = ""
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -34,11 +33,12 @@ ALLOWED_HOSTS = [
 
 INSTALLED_APPS = [
     'rest_framework',
+    'rest_framework.authtoken',
     'data_api',
     'six',
     'rank.apps.RankConfig',
     'common.apps.CommonConfig',
-
+    'payments.apps.PaymentsConfig',
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
@@ -87,7 +87,11 @@ DATABASES = {
         "NAME": BASE_DIR / "db.sqlite3",
     }
 }
-
+# REST_FRAMEWORK = {
+#     'DEFAULT_AUTHENTICATION_CLASSES': [
+#         'payment.authentication.MultiTokenAuthentication',
+#     ],
+# }
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
 
@@ -130,6 +134,7 @@ USE_TZ = False
 # # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 # 점투장 버전
+STATIC_ROOT = BASE_DIR / 'yt_rank' / 'static_root'
 STATIC_URL = 'static/'
 STATICFILES_DIRS = [
     BASE_DIR / 'static',
@@ -146,8 +151,7 @@ EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = '587'
 # gmail과의 통신하는 포트
 EMAIL_HOST_USER = 'copytradingbitgettest@gmail.com'
-# 발신할 이메일
-EMAIL_HOST_PASSWORD = ''
+
 # 발신할 메일의 비밀번호
 EMAIL_USE_TLS = True
 # TLS 보안 방법
