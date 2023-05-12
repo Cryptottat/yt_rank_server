@@ -109,7 +109,7 @@ def signup(request):
             return HttpResponse(
                 '<div style="font-size: 40px; width: 100%; height:100%; display:flex; text-align:center; '
                 'justify-content: center; align-items: center;">'
-                '입력하신 이메일<span>로 인증 링크가 전송되었습니다.</span>'
+                '입력하신 이메일<span>로 인증 링크가 전송되었습니다. 보이지 않을경우 스팸함을 확인해주세요.</span>'
                 '</div>'
             )
             return redirect('rank:index')
