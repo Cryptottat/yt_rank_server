@@ -13,5 +13,5 @@ class User(AbstractUser):
     #     unique_together = ('username', 'email')
 
 class TelegramInfo(models.Model):
-    bot_token = models.CharField(max_length=30, verbose_name='봇 토큰')
+    bot_token = models.CharField(max_length=100, verbose_name='봇 토큰')
     chat_id = models.CharField(max_length=30, verbose_name='챗 ID')
