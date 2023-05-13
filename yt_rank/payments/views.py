@@ -56,8 +56,10 @@ def create_charge(request, username):
             client = Client(api_key=settings.COINBASE_COMMERCE_API_KEY)
             current_site = get_current_site(request)
             domain_url = current_site.domain + '/'
-            if not 'http://' in domain_url:
-                domain_url = 'https://' + domain_url
+            print(domain_url)
+            if not 'https://' in domain_url or not 'http://' in domain_url:
+                domain_url = 'https://' + domain_url  # Todo: 커밋 전 활성화할것. 로컬 테스트용도
+                # domain_url = 'http://' + domain_url  # Todo: 커밋 전 주석처리할것. 로컬 테스트용도
             product = {
                 'name': f'{order_point} 포인트',
                 'description': '포인트를 충전합니다.', #domain_url + 'payments/success/' + f"{uid}/{token}/",
@@ -106,8 +108,8 @@ def cancel_view(request, uid64):
     if token is None:
         return HttpResponse('만료된 요청 또는 이미 반영된 요청입니다.')
     if user is not None:
-        msg = f"신규충전 취소\n{user.username}"
-        send_to_telegram(msg)
+        # msg = f"신규충전 취소\n{user.username}"
+        # send_to_telegram(msg)
         token.delete()
         return render(request, 'payments/cancel.html')
     else:
