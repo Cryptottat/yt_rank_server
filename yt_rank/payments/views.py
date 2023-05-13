@@ -22,6 +22,7 @@ from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.http import require_http_methods
 from rest_framework.authtoken.models import Token
 from django.contrib.sites.shortcuts import get_current_site
+from common.telegram import send_to_telegram
 def point_page_view(request):
     point_value = PointValue.objects.all().first()
     if point_value is None:
@@ -91,6 +92,8 @@ def success_view(request, uid64, token):
         token.delete()
         order_point = token_point.point
         user.point = user.point + order_point
+        msg = f"신규충전\n{user.username}\n{order_point}포인트"
+        send_to_telegram(msg)
         user.save()
         return render(request, 'payments/success.html')
     else:
@@ -103,6 +106,8 @@ def cancel_view(request, uid64):
     if token is None:
         return HttpResponse('만료된 요청 또는 이미 반영된 요청입니다.')
     if user is not None:
+        msg = f"신규충전 취소\n{user.username}"
+        send_to_telegram(msg)
         token.delete()
         return render(request, 'payments/cancel.html')
     else:

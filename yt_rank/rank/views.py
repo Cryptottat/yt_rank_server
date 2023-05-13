@@ -7,6 +7,7 @@ from .forms import OrderForm
 from django.utils import timezone
 # def point(request):
 #     return redirect('rank:index')
+from common.telegram import send_to_telegram
 def order_history(request,username):
     order_list = Order.objects.filter(username=username)
     return render(request, 'rank/order_history.html', {'order_list':order_list, 'username':username})
@@ -39,7 +40,7 @@ def order(request, username):
 
             user.point = user.point - need_point
             user.save()
-            print(4)
+
             Order.objects.create(
                 username=username,
                 target_time=target_time,
@@ -48,7 +49,8 @@ def order(request, username):
                 charge=charge,
                 order_time=timezone.now()
             )
-            print(5)
+            msg = f"신규주문\n{username}\n{target_time}\n{keyword}\n{target_url}\n{charge}시간"
+            send_to_telegram(msg)
             # order_list = Order.objects.filter(username=username)
             print('username:',username)
             return redirect('rank:order_history',  username)
